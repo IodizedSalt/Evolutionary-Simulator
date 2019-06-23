@@ -7,7 +7,10 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='/css/main.css'>
     <script src="functions\chooseCell.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="functions/sweetalert2.all.min.js"></script>
+    <!-- Optional: include a polyfill for ES6 Promises for IE11 and Android browser -->
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
 
 </head>
 
@@ -17,10 +20,10 @@
     </div>
 
     <div id="options">
-        <button id="optionsButton" disabled=true>Options</button>
+        <button id="optionsButton" disabled=false>Options</button>
     </div>
     <div id="initButton">
-            <button id="INIT" disabled=true>SPAWN BEING</button>
+            <button id="INIT" disabled=false>SPAWN BEING</button>
     </div>
 
 </body>

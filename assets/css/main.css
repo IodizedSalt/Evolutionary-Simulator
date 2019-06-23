@@ -5,4 +5,72 @@ body{
     border:1px solid black;
     align-items: center;
     text-align: center;
+    background-color: #ffbe75;
+    width: 30%;
+    margin: 0 auto;
 }
+.bigBangSwal{
+    width:850px !important;
+}
+
+.Carnivore{
+    border-width: .5px;
+    border-style: outset;
+    border-color: #000000;
+    background-color: #ed776d;
+    margin: 1em;
+    height: 100px;
+
+}
+input[type=radio]:checked + span {
+    color: red;
+  } 
+
+
+
+
+.Omnivore{
+    border-width: .5px;
+    border-style: outset;
+    border-color: #000000;
+    background-color: #abebf2;
+    margin: 1em;
+    height: 100px;
+
+}
+
+.Herbivore{
+    border-width: .5px;
+    border-style: outset;
+    border-color: #000000;
+    background-color: #adf1aa;
+    margin: 1em;
+    height: 100px;
+}
+
+.btn-group{
+    margin:4px;
+    /* background-color:#EFEFEF; */
+    /* border-radius:4px; */
+    /* border:1px solid #D0D0D0; */
+    /* overflow:auto; */
+    /* float:left; */
+}
+
+.btn-group label {
+    /* float:left; */
+    width:4.0em;
+}
+
+.btn-group label input {
+    /* position:absolute; */
+    top:-20px;
+}
+
+.btn-group label span {
+    text-align:center;
+    margin: 1em;
+
+}
+
+
