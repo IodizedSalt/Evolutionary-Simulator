@@ -37,6 +37,17 @@ window.onload = function(){
     }
 
 
+    function drawInitOrganisms(){
+        var canvas = document.createElement('canvas');
+        document.body.appendChild(canvas)
+        canvas.setAttribute('class', "carnivoreCanvas");
+        var carnivoreCanvas = document.getElementsByClassName("carnivoreCanvas")
+        var ctx = carnivoreCanvas.getContext("2d");                 //FIX DIS
+        ctx.fillStyle = "#FF0000";
+        ctx.fillRect(0, 0, 150, 75);
+    }
+
+
 
 
 
@@ -64,6 +75,7 @@ function chooseInitOrganism(){
         onClose: function(){
             if(getOrganismType() !== undefined){
                 document.getElementById('BigBang').remove();
+                // drawInitOrganisms();
             }else{
                 return;
             }
@@ -77,6 +89,7 @@ function chooseInitOrganism(){
     document.getElementById('INIT').onclick = function(){
         // attributeSlider();
         getOrganismType();
+        drawInitOrganisms();
     }
 
     document.getElementById('optionsButton').onclick = function(){
