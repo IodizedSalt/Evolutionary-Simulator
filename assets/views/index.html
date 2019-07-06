@@ -6,7 +6,9 @@
     <title>Evolution</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='/css/main.css'>
-    <script src="functions\chooseCell.js"></script>
+    <link rel='stylesheet' type='text/css' media='screen' href='/css/bootstrap.min.css'>
+
+    <script src="functions/chooseCell.js"></script>
     <script src="functions/dependencies/sweetalert2@8.js"></script>
     <script src="functions/dependencies/sweetalert2.all.min.js"></script>
     <!-- Optional: include a polyfill for ES6 Promises for IE11 and Android browser -->
@@ -15,19 +17,30 @@
 
 
 </head>
-
+    <div class="navbar">
+    <ul class="nav nav-pills">
+        <li class="nav-item"><a class="nav-link acvtive" >Brain </a></li>
+        <li class="nav-item"><a class="nav-link"  >Options</a></li>
+    </ul>
+    </div>
 <body>
     <div id='BigBang'> 
         <h1 id=''>Big Bang</h1>
     </div>
 
-    <div id="options">
-        <button id="optionsButton" disabled=false>Options</button>
-    </div>
-    <div id="initButton">
-            <button id="INIT" disabled=false>SPAWN BEING</button>
+    <div hidden id="options">
+        <button id="optionsButton" >Options</button>
     </div>
 
+    <!--     
+    <div id="initButton">
+        <button hidden id="INIT" >SPAWN BEING</button>
+    </div> 
+    -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script>
 
 </body>
 </html>

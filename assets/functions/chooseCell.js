@@ -12,8 +12,6 @@ window.onload = function(){
     };
     document.getElementById('BigBang').onclick = function(){
         chooseInitOrganism();
-        document.getElementById('INIT').disabled=false
-        document.getElementById('optionsButton').disabled=false
     }
 
 
@@ -50,14 +48,13 @@ window.onload = function(){
 
 
 
-
 //Choose the initial organism on Big Bang
 function chooseInitOrganism(){
     swal.fire({
         title: 'Welcome to the Evolutionary hot soup.',
         html:   "<p>Choose an archetype below and begin evolving your organism.</p> "+
                 "<br>" +
-                '<div class="btn-group" data-toggle="buttons">' +
+                '<div class="btn-alert">' +
                     '<label class="Carnivore">' +
                         '<input type="radio" hidden name="check"  onclick=setOrganismType("Carnivore") class="CarnivoreButton"> <span> Carnivore </span>' +
                     '</label>' +
@@ -75,14 +72,13 @@ function chooseInitOrganism(){
         onClose: function(){
             if(getOrganismType() !== undefined){
                 document.getElementById('BigBang').remove();
-                // drawInitOrganisms();
+                drawInitOrganisms();
             }else{
                 return;
             }
         }
 
     });
-
 
         //User should then be able to select attributes and design
 }
