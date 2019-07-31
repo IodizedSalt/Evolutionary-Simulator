@@ -1,4 +1,29 @@
+// Object to hold state of all aspects of a user's game
+
+var gameData = {
+    organsimType: '',
+    atpPerClick: 1,
+    health: 10
+  }
+  
+// Loop that saves game every 15 seconds
+var saveGameLoop = window.setInterval(function() {              
+    localStorage.setItem('EvolutionarySimSave', JSON.stringify(gameData))
+    console.log('Game Auto-saved')
+  }, 15000)
+
+var loadGame = function(){
+    console.log('loading game')
+    var savegame = JSON.parse(localStorage.getItem("EvolutionarySimSave"))
+    if (savegame !== null) {
+      gameData = savegame
+    }
+    console.log(gameData)
+}
+
 window.onload = function(){
+
+    loadGame();
 
     setOrganismType = function(organismType){
         this.organismType = organismType;
@@ -10,8 +35,23 @@ window.onload = function(){
         return this.organismType;
 
     };
+
+    if(gameData.organsimType !== undefined){                        // Check if init organism already selected and a game is already present, otherwise, begin the game
+        console.log('game exists:', gameData.organsimType)
+
+    }else{
+        console.log('no game yet')
+
+    }
+
+
+
     document.getElementById('BigBang').onclick = function(){
         chooseInitOrganism();
+    }
+    document.getElementById('navSave').onclick = function(){
+        localStorage.setItem('EvolutionarySimSave', JSON.stringify(gameData))
+        console.log('Game manually saved')
     }
 
 
@@ -36,13 +76,15 @@ window.onload = function(){
 
 
     function drawInitOrganisms(){
-        var canvas = document.createElement('canvas');
-        document.body.appendChild(canvas)
-        canvas.setAttribute('class', "carnivoreCanvas");
-        var carnivoreCanvas = document.getElementsByClassName("carnivoreCanvas")
-        var ctx = carnivoreCanvas.getContext("2d");                 //FIX DIS
-        ctx.fillStyle = "#FF0000";
-        ctx.fillRect(0, 0, 150, 75);
+        gameData.organsimType = getOrganismType();
+        console.log(gameData);
+    //     var canvas = document.createElement('canvas');
+    //     document.body.appendChild(canvas)
+    //     canvas.setAttribute('class', "carnivoreCanvas");
+    //     var carnivoreCanvas = document.getElementsByClassName("carnivoreCanvas")
+    //     var ctx = carnivoreCanvas.getContext("2d");                 //FIX DIS
+    //     ctx.fillStyle = "#FF0000";
+    //     ctx.fillRect(0, 0, 150, 75);
     }
 
 
@@ -82,11 +124,11 @@ function chooseInitOrganism(){
 
         //User should then be able to select attributes and design
 }
-    document.getElementById('INIT').onclick = function(){
-        // attributeSlider();
-        getOrganismType();
-        drawInitOrganisms();
-    }
+    // document.getElementById('INIT').onclick = function(){
+    //     // attributeSlider();
+    //     getOrganismType();
+    //     drawInitOrganisms();
+    // }
 
     document.getElementById('optionsButton').onclick = function(){
         //Turn this into an options tab
