@@ -1,11 +1,19 @@
 // Object to hold state of all aspects of a user's game
 
 var gameData = {
+    gameExists: false,
     organsimType: '',
-    atpPerClick: 1,
-    health: 10
+    TotalATP: 0,
+    atpPerFood: 0,
+    DPS: 0,
+    health: 0,
+    healthRegen: 0,
+    gameStage: 0,                       //What stage is the user in (Cell, Creature, Space, etc.)
+    elementsStage: 0,                   //What dom elements should be rendered (Which elements to show within the stage that the user is currently in)
+    evolutionLevel: 0,
   }
-  
+var currentEvolutionWidth = 0;
+
 // Loop that saves game every 15 seconds
 var saveGameLoop = window.setInterval(function() {              
     localStorage.setItem('EvolutionarySimSave', JSON.stringify(gameData))
@@ -21,39 +29,88 @@ var loadGame = function(){
     console.log(gameData)
 }
 
+function updateEvolutionBar(value){    
+    currentEvolutionWidth += value;
+    document.getElementById('EVOLUTION').style.width = currentEvolutionWidth + '%';
+
+}
+
+function updateATP(value){
+    gameData.TotalATP += value
+    document.getElementById('ATPLabel').innerText = gameData.TotalATP
+
+}
+
 window.onload = function(){
 
     loadGame();
 
     setOrganismType = function(organismType){
         this.organismType = organismType;
-        console.log(this.organismType)
 
     },
     getOrganismType = function(){
-        console.log(this.organismType)
         return this.organismType;
 
     };
-
-    if(gameData.organsimType !== undefined){                        // Check if init organism already selected and a game is already present, otherwise, begin the game
-        console.log('game exists:', gameData.organsimType)
+    if(gameData.gameExists){                        // Check if init organism already selected and a game is already present, otherwise, begin the game
+        // console.log('game exists:', gameData.organsimType)
 
     }else{
         console.log('no game yet')
-
+        drawBigBang();
     }
 
 
-
-    document.getElementById('BigBang').onclick = function(){
-        chooseInitOrganism();
-    }
     document.getElementById('navSave').onclick = function(){
         localStorage.setItem('EvolutionarySimSave', JSON.stringify(gameData))
         console.log('Game manually saved')
     }
+    document.getElementById('navDelete').onclick = function(){
+        Swal.fire({
+            title: 'Are you certain you want to delete your game?',
+            text: "This CANNOT be undone!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#FF4D4D',
+            cancelButtonColor: '#A1A1A1',
+            confirmButtonText: 'Delete'
+          }).then((result) => {
+            if (result.value) {
+                localStorage.removeItem("EvolutionarySimSave")
+                console.log('Game DELETED')
+                Swal.fire({title: "The Universe implodes", text: "Space, time, consciousness, and everything else that we can perceive, ceases to exist...", type: "success"})
+                .then(function(){ 
+                    location.reload();
+                    }
+             );
+            }
+        })
+       
+    }
 
+
+    function drawBigBang(){
+        var wrapperDiv = document.createElement('div')
+        wrapperDiv.innerHTML = "<div id='BigBang' > <h1 id=''>Big Bang</h1> </div>"
+        document.getElementsByTagName('body')[0].appendChild(wrapperDiv.firstChild)
+        
+        document.getElementById('BigBang').onclick = function(){
+            chooseInitOrganism();
+        }
+    }
+
+    function drawFirstElememnts(){
+
+    }
+
+    function drawSecondElements(){
+
+    }
+    
+    function drawThirdElements(){
+
+    }
 
 
     function attributeSlider(){
@@ -77,6 +134,7 @@ window.onload = function(){
 
     function drawInitOrganisms(){
         gameData.organsimType = getOrganismType();
+        gameData.gameExists = true;
         console.log(gameData);
     //     var canvas = document.createElement('canvas');
     //     document.body.appendChild(canvas)
@@ -130,7 +188,7 @@ function chooseInitOrganism(){
     //     drawInitOrganisms();
     // }
 
-    document.getElementById('optionsButton').onclick = function(){
+    document.getElementById('navOptions').onclick = function(){
         //Turn this into an options tab
     }
 
