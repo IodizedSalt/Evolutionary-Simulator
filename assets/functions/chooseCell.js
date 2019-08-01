@@ -37,14 +37,20 @@ function updateEvolutionBar(value){
 
 function updateATP(value){
     gameData.TotalATP += value
-    document.getElementById('ATPLabel').innerText = gameData.TotalATP
+    document.getElementById('ATPLabel').innerText = 'ATP : ' + gameData.TotalATP
+
+}
+
+function updateLabels(){        //This should update all  of the labels upon resuming session (HP, ATP, Food, Evolution progress, etc.)
 
 }
 
 window.onload = function(){
 
     loadGame();
-
+document.getElementById('atp').onclick = function(){
+    updateATP(1);
+}
     setOrganismType = function(organismType){
         this.organismType = organismType;
 
@@ -61,11 +67,12 @@ window.onload = function(){
         drawBigBang();
     }
 
-
+//Save Function
     document.getElementById('navSave').onclick = function(){
         localStorage.setItem('EvolutionarySimSave', JSON.stringify(gameData))
         console.log('Game manually saved')
     }
+//Delete Function
     document.getElementById('navDelete').onclick = function(){
         Swal.fire({
             title: 'Are you certain you want to delete your game?',
@@ -89,7 +96,7 @@ window.onload = function(){
        
     }
 
-
+//Beginning of new game
     function drawBigBang(){
         var wrapperDiv = document.createElement('div')
         wrapperDiv.innerHTML = "<div id='BigBang' > <h1 id=''>Big Bang</h1> </div>"
@@ -99,9 +106,11 @@ window.onload = function(){
             chooseInitOrganism();
         }
     }
-
+//Display new elements slowly at a time
     function drawFirstElememnts(){
-
+        var wrapperDiv = document.getElementsByClassName('MiddleSection')
+        wrapperDiv.appendChild = 
+        document.getElementsByTagName('body')[0].appendChild(wrapperDiv.firstChild)
     }
 
     function drawSecondElements(){

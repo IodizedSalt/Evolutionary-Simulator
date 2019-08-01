@@ -30,15 +30,37 @@
 
 <div class='MiddleSection'>             <!-- This will go in as inner html in ChooseCell / drawFirstElememnts() -->
     <div style="width: 50%; margin: 0 auto;" class="progress">
-        <div id = 'EVOLUTION' class="progress-bar" style="width: 0%"  role="progressbar"></div>
-    </div>
-
-    </div>
-        <div>
-            <button id='atp'>Add ATP </button>
-            <label class="progress-bar" id="ATPLabel"></label>
+        <div id = 'EVOLUTION' class="progress-bar" style="width: 0%"  role="progressbar">
+            <label id="EvolutionLabel">Evolution</label>           <!-- WHY THE FUCK THIS DOESNT CENTER-->
         </div>
     </div>
+
+    <div>
+        <button id='atp'>Add ATP </button>                                      <!-- Remember to delete me -->
+        <div class="progress" style="width: 50%; margin: 0 auto;">            <!-- WHY THE FUCK THIS DOESNT CENTER-->
+            <label class='resourceLabel' id="ATPLabel">atp: </label>
+        </div>
+    </div>
+
+    <div>
+        <div class="progress" style="width: 50%; margin: 0 auto;">            <!-- WHY THE FUCK THIS DOESNT CENTER-->
+            <label class='resourceLabel'  id="FoodLabel">Food : </label>
+        </div>
+    </div>
+
+    <div class="InteractableSection" style="height: 50%; width: 50%; margin: 0 auto;">
+        <canvas>
+            <!-- Cell goes here -->
+        </canvas>
+        <button id='EatFood'>Eat </button>
+
+        <button id='Photosynthesize'>Photosynthesize </button>      <!-- Toggle these two depending on organism type -->
+        <button id='Attack'>Attack micro-organism</button>
+
+
+    </div>
+
+
 
 </div>
 
