@@ -4,6 +4,8 @@ var gameData = {
     gameExists: false,
     organsimType: '',
     TotalATP: 0,
+    TotalFood: 0,
+    TotalEvolution: 0,
     atpPerFood: 0,
     DPS: 0,
     health: 0,
@@ -14,17 +16,38 @@ var gameData = {
   }
 var currentEvolutionWidth = 0;
 
+//TODO: Move drawUI, updateLabels functions and all others that init elements on page to another file
+
 // Loop that saves game every 15 seconds
 var saveGameLoop = window.setInterval(function() {              
     localStorage.setItem('EvolutionarySimSave', JSON.stringify(gameData))
     console.log('Game Auto-saved')
   }, 15000)
 
+function drawUI(){
+    document.getElementsByClassName('InteractableSection')[0].hidden = false;
+    document.getElementsByClassName('navbar')[0].hidden = false;
+    document.getElementsByClassName('MiddleSection')[0].hidden = false;
+    updateLabels()
+    if(gameData.organsimType == 'Carnivore'){
+        document.getElementById('Photosynthesize').hidden = true
+    }else if(gameData.organsimType == 'Herbivore'){
+        document.getElementById('Attack').hidden = true
+    }
+}
+
+
 var loadGame = function(){
     console.log('loading game')
     var savegame = JSON.parse(localStorage.getItem("EvolutionarySimSave"))
-    if (savegame !== null) {
+
+    if (savegame !== null && savegame.gameExists) {
       gameData = savegame
+      
+      // Display the interactables on load
+      drawUI()
+    
+    
     }
     console.log(gameData)
 }
@@ -35,22 +58,18 @@ function updateEvolutionBar(value){
 
 }
 
-function updateATP(value){
-    gameData.TotalATP += value
-    document.getElementById('ATPLabel').innerText = 'ATP : ' + gameData.TotalATP
 
-}
 
 function updateLabels(){        //This should update all  of the labels upon resuming session (HP, ATP, Food, Evolution progress, etc.)
-
+    document.getElementById('EvolutionLabel').textContent = 'Evolution: ' + gameData.TotalEvolution
+    document.getElementById('ATPLabel').textContent = 'ATP: ' + gameData.TotalATP
+    document.getElementById('FoodLabel').textContent = 'Food: ' + gameData.TotalFood
 }
 
 window.onload = function(){
 
     loadGame();
-document.getElementById('atp').onclick = function(){
-    updateATP(1);
-}
+  
     setOrganismType = function(organismType){
         this.organismType = organismType;
 
@@ -60,8 +79,8 @@ document.getElementById('atp').onclick = function(){
 
     };
     if(gameData.gameExists){                        // Check if init organism already selected and a game is already present, otherwise, begin the game
-        // console.log('game exists:', gameData.organsimType)
-
+        console.log('game exists:', gameData.organsimType)
+        // loadGame();
     }else{
         console.log('no game yet')
         drawBigBang();
@@ -141,10 +160,16 @@ document.getElementById('atp').onclick = function(){
     }
 
 
+
+
     function drawInitOrganisms(){
         gameData.organsimType = getOrganismType();
         gameData.gameExists = true;
         console.log(gameData);
+
+        // Load interactables
+        drawUI()
+
     //     var canvas = document.createElement('canvas');
     //     document.body.appendChild(canvas)
     //     canvas.setAttribute('class', "carnivoreCanvas");
