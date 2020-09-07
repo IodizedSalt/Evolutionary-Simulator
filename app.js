@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-PORT_NUM = 3000
+PORT_NUM = 30011
 
 // app.use('/assets', express.static(__dirname + '/assets'))
 app.use(express.static(__dirname + '/assets'));
