@@ -1,6 +1,9 @@
-function generateSingleATP(){
-    console.log('atp')
-        updateATP(1);
-}
+var ui = require('./uiManagement')
+var gameData = JSON.parse(localStorage.getItem("EvolutionarySimSave"))
 
+module.exports = {
+generateSingleATP(){
+        ui.updateATP(1);
+},
+}
 

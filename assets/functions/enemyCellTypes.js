@@ -1,3 +1,5 @@
+const classifications = ["Protist", "Bacteria", "Virus", "Algae", "Archaea", "Fungus"]
+// "Diazotroph"
 var Ciliate = {
     Classification: "Protist",
     Type: "Protozoa",

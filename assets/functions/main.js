@@ -1,77 +1,46 @@
+// All gameData variables must be update/saved through a function in uiManagement.js
+
 var ui = require('./uiManagement')
+var sm = require('./sustenanceManagement')
 
-
-// Object to hold state of all aspects of a user's game
-// var gameData = {
-//     gameExists: false,
-//     organsimType: '',
-//     TotalATP: 0,
-//     TotalFood: 0,
-//     TotalEvolution: 0,
-//     atpPerFood: 0,
-//     DPS: 0,
-//     health: 0,
-//     healthRegen: 0,
-//     gameStage: 0,                       //What stage is the user in (Cell, Creature, Space, etc.)
-//     elementsStage: 0,                   //What dom elements should be rendered (Which elements to show within the stage that the user is currently in)
-//     evolutionLevel: 0,
-//   }
-
-// var gameData = localStorage.getItem("EvolutionarySimSave")
+var gameData = JSON.parse(localStorage.getItem("EvolutionarySimSave"))
 
 var currentEvolutionWidth = 0;
 
-//TODO: Move drawUI, updateLabels functions and all others that init elements on page to another file
-
-// Loop that saves game every 15 seconds
-var saveGameLoop = window.setInterval(function() {              
-    localStorage.setItem('EvolutionarySimSave', JSON.stringify(gameData))
-    console.log('Game Auto-saved')
-  }, 15000)
-
-
+//TODO: Encrypt localstorage variable
 
 var loadGame = function(){
-    console.log('loading game')
-    var savegame = JSON.parse(localStorage.getItem("EvolutionarySimSave"))
+    console.log('loading game...')
+    ui.saveLoop()
+    gameData = JSON.parse(localStorage.getItem("EvolutionarySimSave"))
 
-    if (savegame !== null && savegame.gameExists) {
-      gameData = savegame
+    if (gameData !== null && gameData.gameExists) {
       
       // Display the interactables on load
-      drawUI()
+      ui.drawUI()
+      console.log('game exists:', gameData)
+
     
-    
+    }else{
+        console.log('game doesnt exist:', gameData)
+        ui.drawBigBang()
+
     }
 }
 
 
 
 window.onload = function(){
-
     loadGame();
-  
-    setOrganismType = function(organismType){
-        this.organismType = organismType;
 
-    },
-    getOrganismType = function(){
-        return this.organismType;
+    document.querySelector('#atp').addEventListener('click', sm.generateSingleATP)
 
-    };
-    if(gameData.gameExists){                        // Check if init organism already selected and a game is already present, otherwise, begin the game
-        console.log('game exists:', gameData.organsimType)
-        // loadGame();
-    }else{
-        console.log('no game yet')
-        drawBigBang();
-    }
-
-//Save Function
+    //Save Function
     document.getElementById('navSave').onclick = function(){
-        localStorage.setItem('EvolutionarySimSave', JSON.stringify(gameData))
-        console.log('Game manually saved')
+        // localStorage.setItem('EvolutionarySimSave', JSON.stringify(gameData))
+        ui.manualSaveGame()
     }
+
 //Delete Function
     document.getElementById('navDelete').onclick = function(){
         Swal.fire({
@@ -86,7 +55,7 @@ window.onload = function(){
             if (result.value) {
                 localStorage.removeItem("EvolutionarySimSave")
                 console.log('Game DELETED')
-                Swal.fire({title: "The Universe implodes", text: "Space, time, consciousness, and everything else that we can perceive, ceases to exist...", type: "success"})
+                Swal.fire({title: "Heat Death of the Universe", text: "Space, time, consciousness, and everything else that we can perceive, ceases to exist...", type: "success"})
                 .then(function(){ 
                     location.reload();
                     }
