@@ -1,7 +1,9 @@
 // All gameData variables must be update/saved through a function in uiManagement.js
 
 var ui = require('./uiManagement')
-var sm = require('./sustenanceManagement')
+var sustenance_management = require('./sustenanceManagement')
+var cell_types = require('./enemyCellTypes')
+var canvas_drawer = require('./canvasDrawer')
 
 var gameData = JSON.parse(localStorage.getItem("EvolutionarySimSave"))
 
@@ -33,7 +35,10 @@ var loadGame = function(){
 window.onload = function(){
     loadGame();
 
-    document.querySelector('#atp').addEventListener('click', sm.generateSingleATP)
+    document.querySelector('#atp').addEventListener('click', sustenance_management.generateSingleATP)
+    document.querySelector('#Photosynthesize').addEventListener('click', function(){
+        sustenance_management.photosynthesize(10)
+    })
 
     //Save Function
     document.getElementById('navSave').onclick = function(){
@@ -41,7 +46,7 @@ window.onload = function(){
         ui.manualSaveGame()
     }
 
-//Delete Function
+    //Delete Function
     document.getElementById('navDelete').onclick = function(){
         Swal.fire({
             title: 'Are you certain you want to delete your game?',
@@ -63,26 +68,6 @@ window.onload = function(){
             }
         })
        
-    }
-
-
-
-    function attributeSlider(){
-        Swal.fire({
-            title: "<i>Title</i>", 
-            html: "Testno  sporocilo za objekt: <b>test</b>",  
-            confirmButtonText: "V <u>redu</u>", 
-          });
-        // var Speed = document.createElement("input");
-        // Speed.type = "number";
-        // var Agility = document.createElement("input");
-        // Agility.type = "number";
-        // var Health = document.createElement("input");
-        // Health.type = "number";
-        // var Intelligence = document.createElement("input");
-        // Intelligence.type = "number";
-
-
     }
 
 

@@ -1,0 +1,1 @@
+// Function file to handle all canvas elements

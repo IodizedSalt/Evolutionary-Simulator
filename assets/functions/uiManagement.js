@@ -41,7 +41,8 @@ drawUI(){
     }else if(gameData.organsimType == 'Herbivore'){
         document.getElementById('Attack').hidden = true
     }
-
+    //TODO: make fade in transition on elements
+    //TODO: brief tutorial on all elements
 },
 
  updateEvolutionBar(value){    
@@ -72,7 +73,39 @@ updateATP(value){
     document.getElementById('ATPLabel').textContent = 'ATP: ' + gameData.TotalATP
     console.log(gameData.TotalATP)
 },
+updateFood(value){
+    console.log(value)
+    gameData.TotalFood += value
+    document.getElementById('FoodLabel').textContent = 'Food: ' + gameData.TotalFood
+    console.log(gameData.TotalFood)
+},
 
+attributeSlider(){
+    //TODO: design attributes panel
+    var organism_speed
+    var organism_agility
+    var organism_health
+    var organism_intelligence
+    swal.fire({
+        title: 'Choose attributes',
+        html:   "<p>All organisms have different, defining attributes.</p> "+
+                "<br>" +
+                "<label> Speed </label> <input type='range' min='1' max='100' value='50'></input>",
+                allowOutsideClick: false,
+                showCancelButton: false,
+                allowEscapeKey : false,
+                showConfirmButton: true,
+                customClass: 'bigBangSwal',
+                onClose: function(){
+                    if(getOrganismType() !== undefined){
+                        module.exports.drawInitOrganisms()
+                    }else{
+                        return;
+                    }
+                }
+        
+    })
+},
 
 
 //Display new elements slowly at a time
@@ -100,7 +133,7 @@ drawFirstElememnts(){
      window.getOrganismType = function(){
          return this.organismType
      }
-
+     //TODO: add hover to all archetypes with brief description
     swal.fire({
         title: 'Welcome to the Evolutionary hot soup.',
         html:   "<p>Choose an archetype below and begin evolving your organism.</p> "+
@@ -118,12 +151,13 @@ drawFirstElememnts(){
                 '</div>' ,
         allowOutsideClick: false,
         showCancelButton: false,
+        allowEscapeKey : false,
         showConfirmButton: true,
         customClass: 'bigBangSwal',
         onClose: function(){
             if(getOrganismType() !== undefined){
                 document.getElementById('BigBang').remove();
-                module.exports.drawInitOrganisms();
+                module.exports.attributeSlider();
             }else{
                 return;
             }
@@ -140,7 +174,6 @@ drawFirstElememnts(){
     gameData.gameExists = true;
 
     localStorage.setItem('EvolutionarySimSave', JSON.stringify(gameData))
-        
     // Load interactables
     module.exports.drawUI()
 

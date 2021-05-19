@@ -2,6 +2,7 @@ This is an incremental game built for self-practice and entertainment.
 
 To run dev enviornment:
     npm run-script build-game
+    nodemon app.js
 
 
 Inspirations:
